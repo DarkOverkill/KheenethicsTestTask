@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 export default class Header extends Component {
@@ -16,7 +16,11 @@ export default class Header extends Component {
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav navbar-right">
-            <li><a href="#" data-toggle="modal" data-target="#modal-login"><AccountsUIWrapper /></a></li>
+              {this.props.currentUser ?
+                <li><a href="#" data-toggle="modal" data-target="#modal-reg" name="editProfile"><span className="glyphicon glyphicon-user"></span>Edit Profile</a></li>
+                : ''
+              }
+              <li><a href="#" data-toggle="modal" data-target="#modal-login"><AccountsUIWrapper /></a></li>
               <li><a href="#" data-toggle="modal" data-target="#modal-reg" name="signup"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
               <li><a href="#" data-toggle="modal" data-target="#modal-login"><span className="glyphicon glyphicon-log-in"></span>Login</a></li>
             </ul>
