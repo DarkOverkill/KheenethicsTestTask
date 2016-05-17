@@ -1,1 +1,14 @@
 /* CSS declarations go here */
+.toSend{
+  resize: none;
+  height: 70px;
+  width: 100%;
+}
+.msgBox{
+  border: 1px solid grey;
+  background-color: #ddd;
+  padding: 10px;
+}
+li{
+  list-style-type: none;
+}

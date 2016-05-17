@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
 
 export default class Header extends Component {
   render() {
@@ -16,6 +18,7 @@ export default class Header extends Component {
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav navbar-right">
+
               {this.props.currentUser ?
                 <li><a href="#" data-toggle="modal" data-target="#modal-reg" name="editProfile"><span className="glyphicon glyphicon-user"></span>Edit Profile</a></li>
                 : ''
@@ -28,4 +31,13 @@ export default class Header extends Component {
         </div>
       </div>);
   }
-}
+};
+Header.PropTypes = {
+  currentUser: PropTypes.object,
+};
+
+export default createContainer(() => {
+  return {
+    currentUser: Meteor.user(),
+  }
+}, Header);
