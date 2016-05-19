@@ -23,14 +23,11 @@ export default class Header extends Component {
           </div>
           <div className="collapse navbar-collapse" id="myNavbar">
             <ul className="nav navbar-nav navbar-right">
-
               {this.props.currentUser ?
                 <li><a href="#" data-toggle="modal" data-target="#modal-reg" name="editProfile" onClick={this.showEditBlock}><span className="glyphicon glyphicon-user"></span>Edit Profile</a></li>
                 : ''
               }
               <li><a href="#" data-toggle="modal" data-target="#modal-login"><AccountsUIWrapper /></a></li>
-              <li><a href="#" data-toggle="modal" data-target="#modal-reg" name="signup"><span className="glyphicon glyphicon-user"></span> Sign Up</a></li>
-              <li><a href="#" data-toggle="modal" data-target="#modal-login"><span className="glyphicon glyphicon-log-in"></span>Login</a></li>
             </ul>
           </div>
         </div>

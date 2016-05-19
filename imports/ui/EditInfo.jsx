@@ -16,8 +16,12 @@ export default class EditInfo extends Component {
     ];
   }
   renderLocation(){
-    return this.getLocation().map((l) => (
-      <option key={l._id} value={l.location}>{l.location}</option>));
+    return this.getLocation().map((l) =>{
+      if (this.props.currentUser.profile.location == l.location){
+        return (<option key={l._id} value={l.location} selected>{l.location}</option>)
+      }
+      return (<option key={l._id} value={l.location}>{l.location}</option>)
+    });
   }
 
   hideEditBlock(){

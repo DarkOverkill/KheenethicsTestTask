@@ -48,7 +48,7 @@ Meteor.methods({
         createdAt: new Date(),
         owner: this.userId,
         username: Meteor.users.findOne(this.userId).username,
-        location: Meteor.users.findOne(this.userId).location,
+        location: Meteor.users.findOne(this.userId).profile.location,
     });
   },
 });

@@ -10,13 +10,14 @@ export default class App extends Component {
     var text = $('textarea')[0].value.trim();
     Meteor.call('messages.insert', text);
     $('textarea')[0].value = '';
-    console.log(this);
   }
 
   renderMessages() {
-    return this.props.messages.map((msg) => (
-      <Message key={msg._id} message={msg} />
-    ));
+    return this.props.messages.map((msg) => {
+      if(this.props.currentUser.profile.location == msg.location){
+        return (<Message key={msg._id} message={msg} />)}
+      return;
+    });
   }
 
   render() {
@@ -25,7 +26,7 @@ export default class App extends Component {
       <div className="col-md-6 col-sm-6">
         <div className='msgBox'>
           <header>
-            <h1>Messages</h1>
+            <h1>Messages <i>({this.props.currentUser ? this.props.currentUser.profile.location : ''})</i></h1>
           </header>
 
           <ul>
@@ -44,11 +45,13 @@ export default class App extends Component {
 
 App.propTypes = {
   messages: PropTypes.array.isRequired,
+  currentUser: PropTypes.object.isRequired,
 };
 
 export default createContainer(() => {
   Meteor.subscribe('messages');
   return {
     messages: Messages.find({}).fetch(),
+    currentUser: Meteor.user(),
   };
 }, App);
