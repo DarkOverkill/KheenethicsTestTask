@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Messages = new Mongo.Collection('messages');
+export const Messages = new Mongo.Collection('messages')
 
 if(Meteor.isServer){
   Meteor.publish('messages', function messagesPublish() {
@@ -29,8 +29,11 @@ Meteor.methods({
     if(!this.userId) {
       throw new Meteor.Error('not-authorized');
     }
-    console.log('done');
     Meteor.users.update(this.userId, {$set: {"emails.0": {"address": email}}});
+  },
+
+  'location.change'(location) {
+      Meteor.users.update(this.userId, {$set: {profile: {location: location}}});
   },
 
   'messages.insert'(text) {

@@ -6,6 +6,20 @@ import { createContainer } from 'meteor/react-meteor-data';
 import {userEdit} from '../api/messages.js';
 
 export default class EditInfo extends Component {
+
+  getLocation(){
+    return [
+      {_id:1, location: 'Earth'},
+      {_id:2, location: 'Mars'},
+      {_id:3, location: 'Europe'},
+      {_id:5, location: 'Moon'},
+    ];
+  }
+  renderLocation(){
+    return this.getLocation().map((l) => (
+      <option key={l._id} value={l.location}>{l.location}</option>));
+  }
+
   hideEditBlock(){
     $('#editBlock').hide();
   }
@@ -19,6 +33,11 @@ export default class EditInfo extends Component {
     var email = $('#newEmail').val();
     $('#newEmail').val('');
     Meteor.call('email.change', email);
+  }
+
+  changeLocation(){
+    var location = $('#newLocation').val();
+    Meteor.call('location.change', location);
   }
 
   render() {
@@ -60,16 +79,20 @@ export default class EditInfo extends Component {
             <h4>Location:</h4>
           </div>
           <div className='col-md-8 col-sm-8'>
+          <span>({this.props.currentUser ?
+                  this.props.currentUser.profile.location : ''})</span>
           {this.props.currentUser ?
-            <input type='text' id='newLocation' placeholder={this.props.currentUser.location}/> : '' }
-            <button onClick={this.changeUsername}><span className='glyphicon glyphicon-pencil'></span></button>
+            <select id="newLocation">
+              {this.renderLocation()}
+            </select> : ''}
+
+            <button onClick={this.changeLocation}><span className='glyphicon glyphicon-pencil'></span></button>
           </div>
         </div>
       </span>
     );
   }
 };
-
 
 EditInfo.PropTypes = {
   currentUser: PropTypes.object.isRequired,
